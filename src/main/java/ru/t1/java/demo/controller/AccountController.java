@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.t1.java.demo.aop.LogDataSourceError;
 import ru.t1.java.demo.dto.account.CreateAccountDto;
 import ru.t1.java.demo.model.Account.Account;
 import ru.t1.java.demo.model.Account.AccountType;
@@ -31,6 +32,7 @@ public class AccountController {
         return accountService.createAccount(dto);
     }
 
+    @LogDataSourceError
     @PostMapping("/with-exception")
     public Account createAccountWithException() {
         CreateAccountDto dto = CreateAccountDto.builder().clientId(777L).accountType(AccountType.CREDIT).build();

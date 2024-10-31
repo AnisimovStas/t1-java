@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.t1.java.demo.aop.LogDataSourceError;
 import ru.t1.java.demo.dto.CreateTransactionDto;
 import ru.t1.java.demo.model.Transaction;
 import ru.t1.java.demo.service.TransactionService;
@@ -32,6 +33,7 @@ public class TransactionController {
         return transactionService.createTransaction(dto);
     }
 
+    @LogDataSourceError
     @PostMapping("/with-exception")
     public Transaction createTransactionWithException() {
         CreateTransactionDto dto = CreateTransactionDto.builder()
