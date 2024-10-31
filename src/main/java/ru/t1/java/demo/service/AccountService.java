@@ -9,4 +9,6 @@ public interface AccountService {
 
     Account getAccount(Long id);
 
+    Account updateAccount(Account account);
+
 }

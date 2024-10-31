@@ -26,4 +26,9 @@ public class AccountServiceImpl implements AccountService {
     public Account getAccount(Long id) {
         return accountRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Account updateAccount(Account account) {
+        return accountRepository.save(account);
+    }
 }
