@@ -11,6 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import ru.t1.java.demo.model.DataSourceErrorLog;
 import ru.t1.java.demo.repository.DataSourceErrorLogRepository;
+import ru.t1.java.demo.util.MessageHeader;
 import ru.t1.java.demo.util.Topics;
 
 import java.util.Arrays;
@@ -40,8 +41,8 @@ public class LogDataSourceErrorAspect {
         try {
             ProducerRecord<String, DataSourceErrorLog> message =
                 new ProducerRecord<>(Topics.METRICS, dataSourceErrorLog);
-            message.headers().add("ERROR", "DATA_SOURCE".getBytes());
-            
+            message.headers().add(MessageHeader.ERROR, "DATA_SOURCE".getBytes());
+
             kafkaTemplate.send(message);
         } catch (Exception ex) {
             log.error("Ошибка при отправке сообщения в Kafka: {}", ex.getMessage());
