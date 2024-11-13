@@ -12,19 +12,21 @@ public class ClientMapper {
 //            throw new NullPointerException();
         }
         return Client.builder()
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
-                .middleName(dto.getMiddleName())
-                .build();
+            .clientId(dto.getClientId())
+            .firstName(dto.getFirstName())
+            .lastName(dto.getLastName())
+            .middleName(dto.getMiddleName())
+            .build();
     }
 
     public static ClientDto toDto(Client entity) {
         return ClientDto.builder()
-                .id(entity.getId())
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .middleName(entity.getMiddleName())
-                .build();
+            .id(entity.getId())
+            .clientId(entity.getClientId())
+            .firstName(entity.getFirstName())
+            .lastName(entity.getLastName())
+            .middleName(entity.getMiddleName())
+            .build();
     }
 
 }

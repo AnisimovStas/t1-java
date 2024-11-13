@@ -39,4 +39,9 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
         <rollback/>
     </changeSet>
 
+    <changeSet id="alter account transaction client tables" author="AnisimovSA">
+        <sqlFile encoding="utf8" path="/db/changelog/2024/11/14-01-changelog-01.sql"/>
+        <rollback/>
+    </changeSet>
+
 </databaseChangeLog>

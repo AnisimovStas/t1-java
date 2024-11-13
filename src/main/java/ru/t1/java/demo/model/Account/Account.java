@@ -23,6 +23,9 @@ import java.math.BigDecimal;
 @Table(name = "account")
 public class Account extends AbstractPersistable<Long> {
 
+    @Column(name = "account_id")
+    private Long accountId;
+
     @Column(name = "client_id")
     private Long clientId;
 
@@ -32,4 +35,6 @@ public class Account extends AbstractPersistable<Long> {
 
     private BigDecimal balance;
 
+    @Column(name = "frozen_amount")
+    private BigDecimal frozenAmount;
 }

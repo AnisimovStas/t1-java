@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.t1.java.demo.dto.CheckResponse;
 import ru.t1.java.demo.dto.ClientDto;
-import ru.t1.java.demo.kafka.KafkaClientProducer;
 import ru.t1.java.demo.model.Client;
 import ru.t1.java.demo.repository.ClientRepository;
 import ru.t1.java.demo.service.ClientService;
@@ -22,7 +21,7 @@ import java.util.Optional;
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository repository;
-    private final KafkaClientProducer kafkaClientProducer;
+//    private final KafkaClientProducer kafkaClientProducer;
 //    private final CheckWebClient checkWebClient;
 
     @Override
@@ -34,7 +33,7 @@ public class ClientServiceImpl implements ClientService {
             check.ifPresent(checkResponse -> {
                 if (!checkResponse.getBlocked()) {
                     Client saved = repository.save(client);
-                    kafkaClientProducer.send(saved.getId());
+//                    kafkaClientProducer.send(saved.getId());
                     savedClients.add(saved);
                 }
             });
@@ -52,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
         if (check.isPresent()) {
             if (!check.get().getBlocked()) {
                 saved = repository.save(client);
-                kafkaClientProducer.send(client.getId());
+//                kafkaClientProducer.send(client.getId());
             }
         }
         return saved;

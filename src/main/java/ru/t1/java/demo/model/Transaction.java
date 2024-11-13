@@ -22,10 +22,15 @@ import java.time.Instant;
 @Table(name = "transaction")
 public class Transaction extends AbstractPersistable<Long> {
 
+    @Column(name = "transaction_id")
+    private Long transactionId;
+
     @Column(name = "account_id")
     private Long accountId;
 
     private BigDecimal amount;
+
+    private TransactionStatus status;
 
     private Instant timestamp;
 }
