@@ -2,6 +2,8 @@ package ru.t1.java.demo.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,7 @@ import java.math.BigDecimal;
 public class TransactionController {
 
     private final TransactionService transactionService;
+    private final KafkaTemplate kafkaTemplate;
 
     @GetMapping("/{id}")
     public Transaction getTransaction(@PathVariable("id") Long id) {
@@ -41,5 +44,21 @@ public class TransactionController {
             .amount(BigDecimal.valueOf(10.0))
             .build();
         return transactionService.createTransaction(dto);
+    }
+
+    @PostMapping("/kafka")
+    public ResponseEntity<String> sendMessageToKafka() {
+        //прошу прощения за kafkaTemplate в контроллере:(
+        CreateTransactionDto dto = CreateTransactionDto.builder()
+            .accountId(3L)
+            .amount(BigDecimal.valueOf(10.0))
+            .build();
+        try {
+            kafkaTemplate.send("t1_demo_transactions", dto);
+        } finally {
+            kafkaTemplate.flush();
+        }
+
+        return ResponseEntity.ok("Message sent to Kafka");
     }
 }

@@ -23,7 +23,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public Transaction createTransaction(CreateTransactionDto dto) {
-
+        
         Account account = accountService.getAccount(dto.getAccountId());
         account.setBalance(account.getBalance().add(dto.getAmount()));
         accountService.updateAccount(account);

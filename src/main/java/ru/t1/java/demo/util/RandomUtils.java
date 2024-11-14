@@ -1,8 +1,10 @@
 package ru.t1.java.demo.util;
 
+import java.util.Random;
+
 public class RandomUtils {
 
     public static Long randomLong() {
-        return Math.abs(Long.parseLong(String.valueOf(Math.random() * 1000000000)));
+        return new Random().nextLong();
     }
 }
