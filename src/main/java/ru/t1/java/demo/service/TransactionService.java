@@ -8,4 +8,6 @@ public interface TransactionService {
     Transaction createTransaction(CreateTransactionDto dto) throws Exception;
 
     Transaction getTransaction(Long id);
+
+    void updateTransactionStatus(Transaction message) throws Exception;
 }
