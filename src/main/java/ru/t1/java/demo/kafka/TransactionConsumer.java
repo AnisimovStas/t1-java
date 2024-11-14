@@ -15,7 +15,11 @@ public class TransactionConsumer {
 
     @KafkaListener(topics = "t1_demo_transactions", groupId = "group_id")
     public void consume(CreateTransactionDto message) {
-        transactionService.createTransaction(message);
+        try {
+            transactionService.createTransaction(message);
+        } catch (Exception e) {
+            log.error("woops", e.getLocalizedMessage());
+        }
         log.info("transaction created from dto: {}", message);
     }
 }

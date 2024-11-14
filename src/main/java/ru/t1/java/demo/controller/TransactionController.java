@@ -32,13 +32,13 @@ public class TransactionController {
     }
 
     @PostMapping
-    public Transaction createTransaction(@RequestBody CreateTransactionDto dto) {
+    public Transaction createTransaction(@RequestBody CreateTransactionDto dto) throws Exception {
         return transactionService.createTransaction(dto);
     }
 
     @LogDataSourceError
     @PostMapping("/with-exception")
-    public Transaction createTransactionWithException() {
+    public Transaction createTransactionWithException() throws Exception {
         CreateTransactionDto dto = CreateTransactionDto.builder()
             .accountId(777L)
             .amount(BigDecimal.valueOf(10.0))

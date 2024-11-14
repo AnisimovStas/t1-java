@@ -34,6 +34,8 @@ public class Account extends AbstractPersistable<Long> {
     private AccountType accountType;
 
     private BigDecimal balance;
+    
+    private AccountStatus status;
 
     @Column(name = "frozen_amount")
     private BigDecimal frozenAmount;
