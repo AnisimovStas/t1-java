@@ -10,4 +10,6 @@ public interface TransactionService {
     Transaction getTransaction(Long id);
 
     void updateTransactionStatus(Transaction message) throws Exception;
+
+    void validateTransaction(Transaction message);
 }
