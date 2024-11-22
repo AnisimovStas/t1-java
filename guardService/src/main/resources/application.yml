@@ -29,3 +29,10 @@ logging:
 
 t1:
   scan-path: ru.t1.java.demo
+  topic:
+    transaction-accept: t1_demo_transaction_accept
+    transaction-result: t1_demo_transaction_result
+  transaction:
+    max-frequency:
+      interval: 6000
+      count: 10
