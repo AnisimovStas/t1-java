@@ -2,6 +2,7 @@ package ru.t1.java.demo.service;
 
 import ru.t1.java.demo.dto.account.CreateAccountDto;
 import ru.t1.java.demo.model.Account.Account;
+import ru.t1.java.demo.model.Account.AccountStatus;
 
 import java.math.BigDecimal;
 
@@ -16,4 +17,6 @@ public interface AccountService {
     void updateBalance(Long accountId, BigDecimal amount) throws Exception;
 
     void suspiciousAction(Long accountId, BigDecimal amount) throws Exception;
+
+    AccountStatus getAccountStatus(Long id);
 }

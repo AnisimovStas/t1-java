@@ -4,7 +4,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.t1.java.demo.client.SecondServiceClient;
 import ru.t1.java.demo.dto.CreateTransactionDto;
+import ru.t1.java.demo.model.Account.AccountStatus;
 import ru.t1.java.demo.model.Transaction;
 import ru.t1.java.demo.model.TransactionStatus;
 import ru.t1.java.demo.repository.TransactionRepository;
@@ -19,12 +21,22 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final AccountService accountService;
+    private final SecondServiceClient secondServiceClient;
 
     @Override
     @Transactional
     public Transaction createTransaction(CreateTransactionDto dto) throws Exception {
-        accountService.updateBalance(dto.getAccountId(), dto.getAmount());
-        return transactionRepository.save(TransactionMapper.createTransaction(dto));
+        Transaction transaction = TransactionMapper.createTransaction(dto);
+        AccountStatus status = secondServiceClient.getAccountStatus(dto.getAccountId());
+
+        if (status == AccountStatus.BLOCKED) {
+            accountService.suspiciousAction(dto.getAccountId(), dto.getAmount());
+            transaction.setStatus(TransactionStatus.REJECTED);
+        } else {
+            accountService.updateBalance(dto.getAccountId(), dto.getAmount());
+        }
+
+        return transactionRepository.save(transaction);
     }
 
     @Override
