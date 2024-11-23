@@ -27,3 +27,5 @@ logging:
 
 t1:
   scan-path: ru.t1.java.demo
+  limits:
+    rejected-transactions: 5

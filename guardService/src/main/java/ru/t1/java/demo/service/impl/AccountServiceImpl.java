@@ -9,6 +9,7 @@ import ru.t1.java.demo.model.Account.AccountStatus;
 import ru.t1.java.demo.repository.AccountRepository;
 import ru.t1.java.demo.service.AccountService;
 import ru.t1.java.demo.util.AccountMapper;
+import ru.t1.java.demo.util.RandomUtils;
 
 import java.math.BigDecimal;
 
@@ -53,6 +54,19 @@ public class AccountServiceImpl implements AccountService {
         account.setFrozenAmount(account.getFrozenAmount().add(amount));
         account.setBalance(account.getBalance().subtract(amount));
         this.updateAccount(account);
+    }
+
+    @Override
+    public AccountStatus getAccountStatus(Long id) {
+        Account account = this.getAccount(id);
+        if (isRandomBanHummer()) {
+            return AccountStatus.BLOCKED;
+        }
+        return account.getStatus();
+    }
+
+    private boolean isRandomBanHummer() {
+        return RandomUtils.randomLong() % 2 == 0;
     }
 
     private void validateAccount(Account account) throws Exception {

@@ -14,6 +14,7 @@ import ru.t1.java.demo.aop.LogDataSourceError;
 import ru.t1.java.demo.aop.Metric;
 import ru.t1.java.demo.dto.account.CreateAccountDto;
 import ru.t1.java.demo.model.Account.Account;
+import ru.t1.java.demo.model.Account.AccountStatus;
 import ru.t1.java.demo.model.Account.AccountType;
 import ru.t1.java.demo.service.AccountService;
 import ru.t1.java.demo.util.RandomUtils;
@@ -65,7 +66,11 @@ public class AccountController {
         } finally {
             kafkaTemplate.flush();
         }
-
         return ResponseEntity.ok("Message sent to Kafka");
+    }
+
+    @GetMapping("/status/{id}")
+    public AccountStatus getAccountStatus(@PathVariable("id") Long id) {
+        return accountService.getAccountStatus(id);
     }
 }
