@@ -7,7 +7,10 @@ import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Component;
 import ru.t1.java.demo.model.Transaction;
 
+import java.util.Optional;
+
 public interface TransactionRepository extends JpaRepository<Transaction, Long>, TransactionRepositoryInternal {
+    Optional<Transaction> findByTransactionId(Long transactionId);
 }
 
 interface TransactionRepositoryInternal {

@@ -50,11 +50,11 @@ public class TransactionServiceImpl implements TransactionService {
         if (message == null) {
             throw new Exception("Transaction in message is null");
         }
-        if (message.getId() == null) {
+        if (message.getTransactionId() == null) {
             throw new Exception("Transaction id in message is null");
         }
 
-        Transaction transaction = transactionRepository.findById(message.getId()).orElse(null);
+        Transaction transaction = transactionRepository.findByTransactionId(message.getTransactionId()).orElse(null);
         if (transaction == null) {
             throw new Exception("Transaction not found in database");
         }
